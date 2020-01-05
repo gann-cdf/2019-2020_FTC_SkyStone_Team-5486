@@ -75,7 +75,7 @@ public class AutoBlue extends LinearOpMode {
         rr.setPower(1);
     }
 
-    public void foundMoving(Boolean moveDown) {
+    public void foundMoving(boolean moveDown) {
         if (!moveDown) {
             l_found.setPosition(-0.7);
             r_found.setPosition(1.5);
@@ -100,13 +100,7 @@ public class AutoBlue extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive()) {
-            if (gamepad1.a) {
-                forwardDrive();
-                stopMoving();
-                stop();
-            }
-            //moving the foundation into the building site
-            else {
+
                 forwardDrive();
                 sleep(1000); //these sleep times are random guesses -- need to be tested
                 stopMoving();
@@ -131,4 +125,3 @@ public class AutoBlue extends LinearOpMode {
             }
         }
     }
-}
