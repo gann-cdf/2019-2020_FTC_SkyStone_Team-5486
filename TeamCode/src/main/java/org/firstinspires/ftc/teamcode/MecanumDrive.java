@@ -2,7 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoController;
 
 /**
  * This is based on the helpful write-up at
@@ -20,6 +23,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class MecanumDrive extends OpMode {
 
     private DcMotor lf, rf, lr, rr;
+    private Servo l_found, r_found;
 
     /**
      * It may have beena wiring figment on our end, but we noticed that the rear motors were running
@@ -28,6 +32,7 @@ public class MecanumDrive extends OpMode {
      * in which case this constant should be set to 1, not -1.
      */
     private final double INVERT_REAR_MOTORS = -1;
+    private double encoder;
 
     @Override
     public void init() {
@@ -36,7 +41,33 @@ public class MecanumDrive extends OpMode {
         rf = hardwareMap.get(DcMotor.class, "right front");
         lr = hardwareMap.get(DcMotor.class, "left rear");
         rr = hardwareMap.get(DcMotor.class, "right rear");
+        //claw = hardwareMap.servo.get("claw");
+        l_found = hardwareMap.servo.get("left foundation");
+        r_found = hardwareMap.servo.get("right foundation");
+        encoder = 0;
     }
+
+    public void moveFound() {
+        //right bumper = rotate downward
+        //left bumper = rotate horizontal
+        if (gamepad1.right_bumper) {
+            l_found.setPosition(-.7);
+            r_found.setPosition(1.5);
+        } else if (gamepad1.left_bumper) {
+            l_found.setPosition(0.6);
+            r_found.setPosition(0.7);
+        }
+    }
+
+    /*public void moveClaw() {
+        if (gamepad1.a) {
+            claw.setPosition(0.75);
+        } else if (gamepad1.b) {
+            claw.setPosition(1.75);
+        } else if (gamepad1.y) {
+            claw.setPosition(1.0);
+        }
+    }*/
 
     @Override
     public void loop() {
@@ -71,9 +102,14 @@ public class MecanumDrive extends OpMode {
         /*
          * Adjust motor power to move at speed in heading with desired rotation
          */
+
         lf.setPower(speed * headingY_adjusted + rotation);
-        rf.setPower(speed * headingX_adjusted - rotation);
+        rf.setPower(-speed * headingX_adjusted - rotation);
         lr.setPower(INVERT_REAR_MOTORS * (speed * headingX_adjusted + rotation));
-        rr.setPower(INVERT_REAR_MOTORS * (speed * headingY_adjusted - rotation));
+        rr.setPower(-INVERT_REAR_MOTORS * (speed * headingY_adjusted - rotation));
+        moveFound();
+        //moveClaw();
+        //claw.setPower(-speed * gamepad1.left_trigger);
+
     }
 }
