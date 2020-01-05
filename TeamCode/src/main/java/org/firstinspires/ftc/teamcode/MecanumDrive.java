@@ -106,7 +106,7 @@ public class MecanumDrive extends OpMode {
         lf.setPower(speed * headingY_adjusted + rotation);
         rf.setPower(-speed * headingX_adjusted - rotation);
         lr.setPower(INVERT_REAR_MOTORS * (speed * headingX_adjusted + rotation));
-        rr.setPower(-INVERT_REAR_MOTORS * (speed * headingY_adjusted - rotation));
+        rr.setPower(INVERT_REAR_MOTORS * (speed * headingY_adjusted - rotation));
         moveFound();
         //moveClaw();
         //claw.setPower(-speed * gamepad1.left_trigger);

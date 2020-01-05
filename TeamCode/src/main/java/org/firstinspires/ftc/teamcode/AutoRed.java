@@ -49,8 +49,8 @@ public class AutoRed extends LinearOpMode {
     public void forwardDrive() {
         lf.setPower(1);
         lr.setPower(1);
-        rf.setPower(-1);
-        rr.setPower(-1);
+        rf.setPower(1);
+        rr.setPower(1);
     }
 
     public void backwardDrive() {
