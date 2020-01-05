@@ -1,35 +1,35 @@
 
 package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.hardware.bosch.BNO055IMU;
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.TouchSensor;
-        import com.qualcomm.robotcore.util.ElapsedTime;
-        import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
-        import org.firstinspires.ftc.robotcore.external.ClassFactory;
-        import org.firstinspires.ftc.robotcore.external.Telemetry;
-        import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-        import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-        import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
-        import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
-        import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
-        import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
-        import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-        import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
+import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
+import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
+import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
+import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous(name = "AutoBlue", group = "Autonomous")
 
@@ -87,36 +87,48 @@ public class AutoBlue extends LinearOpMode {
 
 
     public void runOpMode() throws InterruptedException {
+        telemetry.addData("Initializing AUTOBLUE", "Initializing motor controllers");
+        lf = hardwareMap.get(DcMotor.class, "left front");
+        rf = hardwareMap.get(DcMotor.class, "right front");
+        lr = hardwareMap.get(DcMotor.class, "left rear");
+        rr = hardwareMap.get(DcMotor.class, "right rear");
+        //claw = hardwareMap.servo.get("claw");
+        l_found = hardwareMap.servo.get("left foundation");
+        r_found = hardwareMap.servo.get("right foundation");
+
         waitForStart();
         runtime.reset();
 
         while (opModeIsActive()) {
-            if (gamepad1.a){
-                    forwardDrive();
-                    stopMoving();
-                    stop();}
+            if (gamepad1.a) {
+                forwardDrive();
+                stopMoving();
+                stop();
+            }
             //moving the foundation into the building site
             else {
                 forwardDrive();
-                sleep (1000); //these sleep times are random guesses -- need to be tested
+                sleep(1000); //these sleep times are random guesses -- need to be tested
                 stopMoving();
                 foundMoving(true); //foundation mover thingies rotate perpendicular to the floor
                 sleep(100);
                 strafeRight();
-                sleep (500);
+                sleep(500);
                 stopMoving();
                 backwardDrive();
-                sleep (1000);
+                sleep(1000);
                 stopMoving();
                 foundMoving(false); //foundation movers parallel to the floor
 
 
-            //Can we use the claw yet??
+                //Can we use the claw yet??
 
-            //move under skybridge
+                //move under skybridge
                 strafeLeft();
                 sleep(1000);
                 stopMoving();
-                stop();}
-        }}
+                stop();
+            }
+        }
     }
+}
