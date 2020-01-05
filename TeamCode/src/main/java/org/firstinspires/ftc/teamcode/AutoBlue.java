@@ -102,7 +102,7 @@ public class AutoBlue extends LinearOpMode {
         while (opModeIsActive()) {
 
                 forwardDrive();
-                sleep(1000); //these sleep times are random guesses -- need to be tested
+                sleep(3000); //these sleep times are random guesses -- need to be tested
                 stopMoving();
                 foundMoving(true); //foundation mover thingies rotate perpendicular to the floor
                 sleep(100);
