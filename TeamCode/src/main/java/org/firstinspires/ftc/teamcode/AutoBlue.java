@@ -91,26 +91,32 @@ public class AutoBlue extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive()) {
+            if (gamepad1.a){
+                    forwardDrive();
+                    stopMoving();
+                    stop();}
             //moving the foundation into the building site
-            forwardDrive();
-            sleep (1000); //these sleep times are random guesses -- need to be tested
-            stopMoving();
-            foundMoving(true); //foundation mover thingies rotate perpendicular to the floor
-            sleep(100);
-            strafeRight();
-            sleep (500);
-            stopMoving();
-            backwardDrive();
-            sleep (1000);
-            stopMoving();
-            foundMoving(false); //foundation movers parallel to the floor
+            else {
+                forwardDrive();
+                sleep (1000); //these sleep times are random guesses -- need to be tested
+                stopMoving();
+                foundMoving(true); //foundation mover thingies rotate perpendicular to the floor
+                sleep(100);
+                strafeRight();
+                sleep (500);
+                stopMoving();
+                backwardDrive();
+                sleep (1000);
+                stopMoving();
+                foundMoving(false); //foundation movers parallel to the floor
+
 
             //Can we use the claw yet??
 
             //move under skybridge
-            strafeLeft();
-            sleep(1000);
-            stopMoving();
-            stop();
+                strafeLeft();
+                sleep(1000);
+                stopMoving();
+                stop();}
         }}
     }
