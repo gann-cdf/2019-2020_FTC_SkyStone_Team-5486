@@ -105,7 +105,7 @@ public class AutoRed extends LinearOpMode {
             stopMoving();
             foundMoving(true); //foundation mover thingies rotate perpendicular to the floor
             sleep(100);
-            strafeRight();
+            strafeLeft();
             sleep(500);
             stopMoving();
             backwardDrive();

@@ -55,8 +55,8 @@ public class AutoBlue extends LinearOpMode {
     }
 
     public void backwardDrive() {
-        lf.setPower(1);
-        lr.setPower(1);
+        lf.setPower(-1);
+        lr.setPower(-1);
         rf.setPower(-1);
         rr.setPower(-1);
     }
@@ -102,13 +102,14 @@ public class AutoBlue extends LinearOpMode {
         while (opModeIsActive()) {
 
                 forwardDrive();
-                sleep(1000); //these sleep times are random guesses -- need to be tested
+                sleep(100); //these sleep times are random guesses -- need to be tested
                 stopMoving();
                 foundMoving(true); //foundation mover thingies rotate perpendicular to the floor
                 sleep(100);
                 strafeRight();
                 sleep(500);
                 stopMoving();
+                sleep(100);
                 backwardDrive();
                 sleep(1000);
                 stopMoving();
@@ -119,6 +120,8 @@ public class AutoBlue extends LinearOpMode {
 
                 //move under skybridge
                 strafeLeft();
+                sleep(1000);
+                forwardDrive();
                 sleep(1000);
                 stopMoving();
                 stop();
