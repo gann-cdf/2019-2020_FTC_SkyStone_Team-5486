@@ -24,6 +24,8 @@ public class MecanumDrive extends OpMode {
 
     private DcMotor lf, rf, lr, rr;
     private Servo l_found, r_found;
+    private Servo left_claw, right_claw;
+    private DcMotor vertical_claw;
 
     /**
      * It may have beena wiring figment on our end, but we noticed that the rear motors were running
@@ -44,6 +46,9 @@ public class MecanumDrive extends OpMode {
         //claw = hardwareMap.servo.get("claw");
         l_found = hardwareMap.servo.get("left foundation");
         r_found = hardwareMap.servo.get("right foundation");
+        vertical_claw = hardwareMap.get(DcMotor.class, "vertical_claw");
+        left_claw = hardwareMap.servo.get("left_claw");
+        right_claw = hardwareMap.servo.get("right_claw");
         encoder = 0;
     }
 
@@ -51,7 +56,7 @@ public class MecanumDrive extends OpMode {
         //right bumper = rotate downward
         //left bumper = rotate horizontal
         if (gamepad1.right_bumper) {
-            l_found.setPosition(-.7);
+            l_found.setPosition(-0.7);
             r_found.setPosition(1.5);
         } else if (gamepad1.left_bumper) {
             l_found.setPosition(0.6);
@@ -59,15 +64,17 @@ public class MecanumDrive extends OpMode {
         }
     }
 
-    /*public void moveClaw() {
-        if (gamepad1.a) {
-            claw.setPosition(0.75);
+    public void moveClaw() {
+        if (gamepad1.x) {
+            left_claw.setPosition(0.75);
+            right_claw.setPosition(-0.75);
         } else if (gamepad1.b) {
-            claw.setPosition(1.75);
+            left_claw.setPosition(0);
+            right_claw.setPosition(0);
         } else if (gamepad1.y) {
-            claw.setPosition(1.0);
+            vertical_claw.setPower(0.2);
         }
-    }*/
+    }
 
     @Override
     public void loop() {
@@ -106,10 +113,9 @@ public class MecanumDrive extends OpMode {
         lf.setPower(speed * headingY_adjusted + rotation);
         rf.setPower(-speed * headingX_adjusted - rotation);
         lr.setPower(INVERT_REAR_MOTORS * (speed * headingX_adjusted + rotation));
-        rr.setPower(INVERT_REAR_MOTORS * (speed * headingY_adjusted - rotation));
+        rr.setPower(-INVERT_REAR_MOTORS * (speed * headingY_adjusted - rotation));
         moveFound();
-        //moveClaw();
-        //claw.setPower(-speed * gamepad1.left_trigger);
+        moveClaw();
 
     }
 }
