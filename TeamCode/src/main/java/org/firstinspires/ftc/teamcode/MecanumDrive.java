@@ -66,14 +66,17 @@ public class MecanumDrive extends OpMode {
 
     public void moveClaw() {
         if (gamepad1.x) {
-            left_claw.setPosition(0.75);
-            right_claw.setPosition(-0.75);
+            left_claw.setPosition(2.15);
+            right_claw.setPosition(-2.15);
         } else if (gamepad1.b) {
             left_claw.setPosition(0);
             right_claw.setPosition(0);
         } else if (gamepad1.y) {
-            vertical_claw.setPower(0.2);
+            vertical_claw.setPower(0.6);
+        } else if (gamepad1.a) {
+            vertical_claw.setPower(0.6);
         }
+
     }
 
     @Override
